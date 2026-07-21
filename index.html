@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="only light">
+<meta name="supported-color-schemes" content="light">
+<title>Sunshine Fortune Buildtech — Built to Hold</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --concrete: #FFFFFF;
+    --concrete-dark: #F4F4F4;
+    --charcoal: #101010;
+    --charcoal-soft: #2B302B;
+    --steel: #2B5578;
+    --steel-light: #6C8CA8;
+    --amber: #D98A1E;
+    --rebar: #3F3F3F;
+    --line: rgba(16, 16, 16, 0.12);
+  }
+
+  html {
+    background: #FFFFFF !important;
+    color-scheme: only light;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  body {
+    margin: 0;
+    background: #FFFFFF;
+    color: var(--charcoal);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, .display {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin: 0;
+    color: var(--charcoal);
+  }
+
+  .mono {
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.04em;
+  }
+
+  a { color: inherit; }
+
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .hazard-bar {
+    height: 8px;
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--charcoal), var(--charcoal) 14px,
+      var(--amber) 14px, var(--amber) 28px
+    );
+  }
+
+  /* ---------- Blueprint grid backdrop ---------- */
+  .blueprint {
+    position: relative;
+    background-color: #FFFFFF;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 42px 42px;
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--concrete);
+    border-bottom: 2px solid var(--charcoal);
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 32px;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    text-transform: uppercase;
+  }
+  .brand .mark {
+    display: inline-flex;
+    width: 30px; height: 30px;
+    background: var(--amber);
+    color: var(--charcoal);
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+  .brand .mark span { transform: rotate(-45deg); }
+  .brand small {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--rebar);
+    text-transform: none;
+    font-weight: 400;
+  }
+  nav.links {
+    display: flex;
+    gap: 34px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  nav.links a {
+    text-decoration: none;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s ease;
+  }
+  nav.links a:hover { border-color: var(--amber); }
+  .nav-cta {
+    background: var(--charcoal);
+    color: var(--concrete);
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { background: var(--steel); }
+  .menu-btn { display: none; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 96px 32px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 48px;
+    align-items: end;
+  }
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    color: var(--steel);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 28px; height: 2px;
+    background: var(--amber);
+    display: inline-block;
+  }
+  .hero h1 {
+    font-size: clamp(44px, 6vw, 84px);
+    line-height: 0.98;
+    font-weight: 700;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--steel);
+  }
+  .hero p.lead {
+    font-family: 'IBM Plex Sans', sans-serif;
+    text-transform: none;
+    letter-spacing: normal;
+    font-size: 18px;
+    color: var(--charcoal-soft);
+    max-width: 42ch;
+    margin-top: 24px;
+  }
+  .hero-cta-row {
+    display: flex;
+    gap: 16px;
+    margin-top: 36px;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--charcoal);
+    color: var(--concrete);
+    padding: 16px 28px;
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.2s ease;
+  }
+  .btn-primary:hover { background: var(--steel); }
+  .btn-secondary {
+    padding: 16px 28px;
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    border: 2px solid var(--charcoal);
+    display: inline-flex;
+    align-items: center;
+  }
+  .btn-secondary:hover { border-color: var(--steel); color: var(--steel); }
+
+  /* Measurement panel — signature element */
+  .measure-panel {
+    border: 2px solid var(--charcoal);
+    background: var(--concrete-dark);
+    padding: 28px;
+    position: relative;
+  }
+  .measure-panel::before {
+    content: "SITE DATA";
+    position: absolute;
+    top: -12px;
+    left: 24px;
+    background: var(--amber);
+    color: var(--charcoal);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    padding: 3px 10px;
+  }
+  .measure-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .measure-row:last-child { border-bottom: none; }
+  .measure-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--rebar);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .measure-value {
+    font-family: 'Oswald', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+  }
+  .measure-value sup {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--steel);
+    margin-left: 2px;
+  }
+  .measure-progress {
+    margin-top: 20px;
+    height: 8px;
+    background: var(--concrete);
+    border: 1px solid var(--charcoal);
+    overflow: hidden;
+  }
+  .measure-progress .bar {
+    display: block;
+    height: 100%;
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--amber), var(--amber) 8px,
+      var(--charcoal) 8px, var(--charcoal) 16px
+    );
+  }
+  .measure-caption {
+    margin-top: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: var(--rebar);
+    text-transform: uppercase;
+  }
+
+  /* ---------- Marquee strip ---------- */
+  .strip {
+    background: var(--charcoal);
+    color: var(--concrete);
+    overflow: hidden;
+    border-top: 2px solid var(--charcoal);
+    border-bottom: 2px solid var(--charcoal);
+  }
+  .strip-track {
+    display: flex;
+    white-space: nowrap;
+    animation: scroll-left 34s linear infinite;
+    width: max-content;
+  }
+  .strip-track span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 14px 36px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--concrete);
+  }
+  .strip-track span::before { content: "◆"; color: var(--amber); font-size: 10px; }
+  @keyframes scroll-left {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ---------- Sections shared ---------- */
+  section { padding: 100px 0; }
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 40px;
+    margin-bottom: 56px;
+    flex-wrap: wrap;
+  }
+  .section-head h2 {
+    font-size: clamp(30px, 4vw, 46px);
+    font-weight: 600;
+    max-width: 16ch;
+  }
+  .section-head p {
+    text-transform: none;
+    letter-spacing: normal;
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: var(--rebar);
+    max-width: 38ch;
+    font-size: 15px;
+  }
+
+  /* ---------- Process (real sequence: build phases) ---------- */
+  .phases {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 2px solid var(--charcoal);
+  }
+  .phase {
+    padding: 32px 28px;
+    border-right: 2px solid var(--charcoal);
+    border-bottom: 2px solid var(--charcoal);
+    position: relative;
+    opacity: 1;
+    transform: none;
+  }
+  /* JS enhances with a reveal animation; CSS alone always shows full content. */
+  .phase.js-reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .phase.in-view { opacity: 1; transform: translateY(0); }
+  .phase:last-child { border-right: none; }
+  .phase .num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--amber);
+    display: block;
+    margin-bottom: 16px;
+  }
+  .phase h3 {
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .phase p {
+    text-transform: none;
+    letter-spacing: normal;
+    font-size: 14px;
+    color: var(--rebar);
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+
+  /* ---------- Services ---------- */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--charcoal);
+    border: 2px solid var(--charcoal);
+  }
+  .service-card {
+    background: var(--concrete);
+    padding: 36px 30px;
+    transition: background 0.25s ease;
+  }
+  .service-card:hover { background: var(--concrete-dark); }
+  .service-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .service-card p {
+    text-transform: none;
+    letter-spacing: normal;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    color: var(--rebar);
+  }
+  .service-tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--steel);
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+
+  /* ---------- Projects ---------- */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .project-card {
+    border: 2px solid var(--charcoal);
+    background: var(--concrete-dark);
+    overflow: hidden;
+  }
+  .project-swatch {
+    height: 160px;
+    position: relative;
+    background:
+      repeating-linear-gradient(135deg, var(--steel-light) 0 2px, transparent 2px 14px),
+      var(--steel);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 16px 18px;
+  }
+  .project-swatch .icon {
+    width: 44px;
+    height: 44px;
+    background: var(--concrete);
+    border: 2px solid var(--charcoal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--charcoal);
+  }
+  .project-swatch .swatch-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--concrete);
+    background: rgba(28,32,29,0.55);
+    padding: 5px 10px;
+  }
+  .project-swatch.b {
+    background:
+      repeating-linear-gradient(135deg, #C9BEA2 0 2px, transparent 2px 14px),
+      var(--rebar);
+  }
+  .project-swatch.c {
+    background:
+      repeating-linear-gradient(135deg, #F0C67D 0 2px, transparent 2px 14px),
+      var(--amber);
+  }
+  .project-swatch.c .swatch-tag { color: var(--charcoal); background: rgba(234,231,224,0.75); }
+  .project-body { padding: 22px 24px; }
+  .project-body .mono {
+    font-size: 11px;
+    color: var(--rebar);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .project-body h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .project-body p {
+    text-transform: none;
+    letter-spacing: normal;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    color: var(--rebar);
+  }
+
+  /* ---------- Stats band ---------- */
+  .stats-band {
+    background: var(--charcoal);
+    color: #FFFFFF;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    text-align: left;
+  }
+  .stat {
+    padding: 0 24px;
+    border-left: 2px solid rgba(234,231,224,0.18);
+  }
+  .stat:first-child { border-left: none; padding-left: 0; }
+  .stat .num {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 600;
+    color: var(--amber);
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+  .stat .unit { font-size: 18px; color: var(--concrete); }
+  .stat .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(234,231,224,0.85);
+    margin-top: 8px;
+    display: block;
+  }
+
+  /* ---------- CTA ---------- */
+  .cta-section {
+    background: var(--concrete);
+    text-align: center;
+  }
+  .cta-box {
+    border: 2px solid var(--charcoal);
+    padding: 72px 40px;
+    background: var(--concrete-dark);
+    position: relative;
+  }
+  .cta-box::before, .cta-box::after {
+    content: "+";
+    position: absolute;
+    font-size: 22px;
+    color: var(--charcoal);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .cta-box::before { top: -13px; left: -13px; }
+  .cta-box::after { bottom: -13px; right: -13px; }
+  .cta-box h2 {
+    font-size: clamp(28px, 4vw, 44px);
+    max-width: 22ch;
+    margin: 0 auto 20px;
+  }
+  .cta-box p {
+    text-transform: none;
+    letter-spacing: normal;
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: var(--rebar);
+    max-width: 46ch;
+    margin: 0 auto 32px;
+    font-size: 15px;
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    background: var(--charcoal);
+    color: var(--concrete);
+    padding: 56px 32px 28px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(234,231,224,0.16);
+  }
+  footer h4 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 18px;
+    font-weight: 500;
+  }
+  footer ul { list-style: none; padding: 0; margin: 0; }
+  footer li { margin-bottom: 10px; font-size: 14px; }
+  footer a { text-decoration: none; opacity: 1; color: var(--concrete); }
+  footer a:hover { color: var(--amber); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 24px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: rgba(234,231,224,0.85);
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    nav.links, .nav-cta { display: none; }
+    .hero-inner { grid-template-columns: 1fr; }
+    .phases { grid-template-columns: repeat(2, 1fr); }
+    .phase:nth-child(2) { border-right: none; }
+    .services-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); row-gap: 32px; }
+    .stat:nth-child(3) { border-left: none; padding-left: 0; }
+    .footer-grid { grid-template-columns: 1fr 1fr; row-gap: 32px; }
+  }
+  @media (max-width: 520px) {
+    .hero { padding: 64px 20px 56px; }
+    .wrap { padding: 0 20px; }
+    section { padding: 64px 0; }
+    .phases { grid-template-columns: 1fr; }
+    .phase { border-right: none; }
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--steel);
+    outline-offset: 2px;
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <span class="mark"><span>SF</span></span>
+        <div>
+          SUNSHINE FORTUNE
+          <div><small>BUILDTECH &nbsp;/&nbsp; EST. SITE OPS</small></div>
+        </div>
+      </div>
+      <nav class="links">
+        <a href="#process">Process</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="nav-cta" href="#contact">Request a Quote</a>
+    </div>
+    <div class="hazard-bar" aria-hidden="true"></div>
+  </header>
+
+  <section class="hero blueprint">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">Design–Build Contractor</div>
+        <h1>We pour the <em>foundation</em>.<br>You get the credit.</h1>
+        <p class="lead">Sunshine Fortune Buildtech runs commercial and industrial builds end to end — permits, structure, mechanical, finish — delivered on the date we quoted, not the date we hoped for.</p>
+        <div class="hero-cta-row">
+          <a class="btn-primary" href="#contact">Start a Project →</a>
+          <a class="btn-secondary" href="#services">See What We Do</a>
+        </div>
+      </div>
+      <div class="measure-panel">
+        <div class="measure-row">
+          <span class="measure-label">Scope</span>
+          <span class="measure-value" style="font-size:18px;">New Build &amp; Renovation</span>
+        </div>
+        <div class="measure-row">
+          <span class="measure-label">Sectors</span>
+          <span class="measure-value" style="font-size:18px;">Commercial · Industrial</span>
+        </div>
+        <div class="measure-row">
+          <span class="measure-label">Coverage</span>
+          <span class="measure-value" style="font-size:18px;">Structure to Finish</span>
+        </div>
+        <div class="measure-row">
+          <span class="measure-label">Contact</span>
+          <span class="measure-value" style="font-size:18px;">Manoj Kumar Gupta</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="strip" aria-hidden="true">
+    <div class="strip-track">
+      <span>Commercial Fit-Out</span>
+      <span>Steel &amp; Concrete Structure</span>
+      <span>Site Excavation</span>
+      <span>Mechanical &amp; Electrical</span>
+      <span>Permit Management</span>
+      <span>Renovation &amp; Retrofit</span>
+      <span>Commercial Fit-Out</span>
+      <span>Steel &amp; Concrete Structure</span>
+      <span>Site Excavation</span>
+      <span>Mechanical &amp; Electrical</span>
+      <span>Permit Management</span>
+      <span>Renovation &amp; Retrofit</span>
+    </div>
+  </div>
+
+  <section id="process">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Four phases. Same crew, start to finish.</h2>
+        <p>No handoffs between subcontractors who've never met. One team owns the site from groundbreak to walkthrough.</p>
+      </div>
+    </div>
+    <div class="phases wrap" style="padding-left:0; padding-right:0;">
+      <div class="phase">
+        <span class="num">PH.01</span>
+        <h3>Survey &amp; Permit</h3>
+        <p>Site assessment, soil testing, and permit filing before a single stake goes in the ground.</p>
+      </div>
+      <div class="phase">
+        <span class="num">PH.02</span>
+        <h3>Foundation &amp; Structure</h3>
+        <p>Excavation, footings, and structural frame — concrete, steel, or timber, engineered to spec.</p>
+      </div>
+      <div class="phase">
+        <span class="num">PH.03</span>
+        <h3>Systems &amp; Envelope</h3>
+        <p>MEP rough-in, insulation, and building envelope closed before weather becomes a variable.</p>
+      </div>
+      <div class="phase">
+        <span class="num">PH.04</span>
+        <h3>Finish &amp; Handover</h3>
+        <p>Interior finish, punch list, and a walkthrough where you find nothing left to flag.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" style="padding-top:0;">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What we take off your plate</h2>
+        <p>Scoped, quoted, and scheduled — each service can run standalone or as part of a full build.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <span class="service-tag">01 — Structural</span>
+          <h3>New Construction</h3>
+          <p>Ground-up commercial and industrial builds, from warehouses to multi-tenant retail shells.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-tag">02 — Interiors</span>
+          <h3>Fit-Out &amp; Renovation</h3>
+          <p>Office, retail, and light-industrial interiors built around your operating timeline, not ours.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-tag">03 — Systems</span>
+          <h3>Mechanical &amp; Electrical</h3>
+          <p>HVAC, electrical, and plumbing rough-in and finish, coordinated with structural milestones.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-tag">04 — Sitework</span>
+          <h3>Excavation &amp; Grading</h3>
+          <p>Site prep, utility trenching, and grading ahead of foundation pour — weather-tracked scheduling.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-tag">05 — Compliance</span>
+          <h3>Permit Management</h3>
+          <p>We file, track, and close out permits with the local authority so your schedule doesn't stall on paperwork.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-tag">06 — Oversight</span>
+          <h3>Site Management</h3>
+          <p>A single site lead on-site daily, reporting progress against the schedule every Friday.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="cta-section">
+    <div class="wrap">
+      <div class="cta-box">
+        <div class="eyebrow" style="justify-content:center;">Let's Look at Your Site</div>
+        <h2>Tell us what you're building. We'll tell you when it's done.</h2>
+        <p>Send site details, rough scope, and your target date. We reply with a real schedule within three business days — not a placeholder quote.</p>
+        <div class="hero-cta-row" style="justify-content:center;">
+          <a class="btn-primary" href="tel:+919415089117">Call Manoj Kumar Gupta →</a>
+        </div>
+        <p class="mono" style="text-align:center; margin-top:16px; font-size:13px; color: var(--rebar);">94150 89117</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="hazard-bar" aria-hidden="true"></div>
+
+  <footer>
+    <div class="wrap" style="padding:0;">
+      <div class="footer-grid">
+        <div>
+          <h4>Sunshine Fortune Buildtech</h4>
+          <p style="font-size:14px; opacity:0.95; max-width:32ch; margin:0; color: var(--concrete);">Design–build contractor for commercial, retail, and light-industrial projects.</p>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#services">Services</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="tel:+919415089117">Manoj Kumar Gupta — 94150 89117</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> Sunshine Fortune Buildtech. All rights reserved.</span>
+        <span>Built on-site. Documented on paper.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Reveal phase cards on scroll (progressive enhancement only —
+    // cards are fully visible via CSS even if this never runs).
+    const phases = document.querySelectorAll('.phase');
+    phases.forEach(p => p.classList.add('js-reveal'));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('in-view'), i * 90);
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.25 });
+    phases.forEach(p => io.observe(p));
+  </script>
+
+</body>
+</html>
