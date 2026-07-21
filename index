@@ -5,14 +5,10 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
-  // Override default ignores of eslint-config-next.
-  globalIgnores([
-    // Default ignores of eslint-config-next:
-    ".next/**",
-    "out/**",
-    "build/**",
-    "next-env.d.ts",
-  ]),
+  // eslint-config-next already ignores .next/**, out/**, build/**, and
+  // next-env.d.ts by default. We only need to add project-specific paths
+  // here so `eslint .` behaves the same as `npm run lint`.
+  globalIgnores(["work/**"]),
 ]);
 
 export default eslintConfig;
